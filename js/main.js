@@ -196,15 +196,19 @@ function convertSelectsToCustom() {
 }
 
 function initAppointmentModal() {
-	var modal = document.getElementById('appointment-modal');
-	if (modal && modal.parentElement !== document.body) {
-		document.body.appendChild(modal);
-	}
 	convertSelectsToCustom();
-	var countryLabel = document.querySelector('.appointment__field--code .appointment__label--float');
-	if (countryLabel && countryLabel.getAttribute('for') === 'm-country') {
-		countryLabel.setAttribute('for', 'm-country-trigger');
-	}
+	var countryLabels = document.querySelectorAll('.appointment__field--code .appointment__label--float');
+	countryLabels.forEach(function(lbl) {
+		var forId = lbl.getAttribute('for');
+		if (forId) {
+			var el = document.getElementById(forId);
+			if (el && (el.type === 'hidden' || el.tagName === 'SELECT')) {
+				lbl.setAttribute('for', forId + '-trigger');
+			}
+		}
+	});
+}
+
 function closeAllCustomSelects() {
 	document.querySelectorAll('.appointment__custom-options[aria-hidden="false"]').forEach(function(list) {
 		list.setAttribute('aria-hidden', 'true');
@@ -226,7 +230,7 @@ function resetCustomSelects() {
 		var input = document.getElementById(id);
 		var display = trigger.querySelector('span');
 		if (!input || !display) return;
-		if (id === 'm-country') {
+		if (id === 'm-country' || id === 'f-country' || id === 'a-country' || id === 'd-country') {
 			display.textContent = '+7';
 			input.value = '+7';
 			trigger.dataset.filled = '1';
@@ -239,29 +243,88 @@ function resetCustomSelects() {
 	});
 }
 
+function openModal(id) {
+	var m = document.getElementById(id);
+	if (!m) return;
+	if (m.parentElement !== document.body) document.body.appendChild(m);
+	m.setAttribute('aria-hidden', 'false');
+	document.body.classList.add('modal--active');
+	closeAllCustomSelects();
+}
+
+function closeModal(m) {
+	m.setAttribute('aria-hidden', 'true');
+	document.body.classList.remove('modal--active');
+	var bodyEl = m.querySelector('.modal__body');
+	if (bodyEl) { bodyEl.style.height = ''; bodyEl.style.minHeight = ''; bodyEl.style.overflow = ''; bodyEl.style.display = ''; bodyEl.style.flexDirection = ''; }
+	var form = m.querySelector('form');
+	if (form) {
+		form.querySelectorAll('.appointment__input--error').forEach(function(el) { el.classList.remove('appointment__input--error'); });
+		var cb = form.querySelector('.appointment__checkbox');
+		if (cb) cb.style.color = '';
+		form.reset();
+		form.removeAttribute('style');
+	}
+	m.querySelectorAll('.form-success').forEach(function(el) {
+		el.hidden = true;
+		el.classList.remove('form-success--done');
+	});
+	resetCustomSelects();
+}
+
+function showSuccess(text) {
+	var el = document.createElement('div');
+	el.className = 'success-toast';
+	el.textContent = text;
+	document.body.appendChild(el);
+	requestAnimationFrame(function() {
+		el.classList.add('success-toast--visible');
+	});
+	setTimeout(function() {
+		el.classList.remove('success-toast--visible');
+		setTimeout(function() { el.remove(); }, 400);
+	}, 3500);
+}
+
 document.addEventListener('click', function(e) {
-	var target = e.target;
-	if (target.matches('[data-modal-open]') || target.closest('[data-modal-open]')) {
-		modal.setAttribute('aria-hidden', 'false');
-		document.body.classList.add('modal--active');
-		closeAllCustomSelects();
+	var btn = e.target.closest('[data-modal-open]');
+	if (btn) {
+		var id = btn.getAttribute('data-modal-open');
+		openModal(id);
 		return;
 	}
-	if (target.matches('[data-modal-close]') || target.closest('[data-modal-close]')) {
-		modal.setAttribute('aria-hidden', 'true');
-		document.body.classList.remove('modal--active');
-		var form = modal.querySelector('form');
-		if (form) {
-			form.querySelectorAll('.appointment__input--error').forEach(function(el) { el.classList.remove('appointment__input--error'); });
-			form.querySelector('.appointment__checkbox').style.color = '';
-			form.reset();
-		}
-		resetCustomSelects();
+	var close = e.target.closest('[data-modal-close]');
+	if (close) {
+		var m = close.closest('.modal');
+		if (m) closeModal(m);
 		return;
 	}
 });
 
 document.addEventListener('click', function(e) {
+	var filterBtn = e.target.closest('.staff__filter');
+	if (filterBtn) {
+		var filter = filterBtn.getAttribute('data-filter');
+		var parent = filterBtn.closest('.staff__body');
+		if (!parent || !filter) return;
+		parent.querySelectorAll('.staff__filter').forEach(function(b) {
+			b.classList.remove('staff__filter--active');
+		});
+		filterBtn.classList.add('staff__filter--active');
+		parent.querySelectorAll('.staff__card[data-specialty]').forEach(function(card) {
+			card.hidden = (filter !== 'all' && card.getAttribute('data-specialty') !== filter);
+		});
+		return;
+	}
+	var staffBtn = e.target.closest('.staff__card-btn[data-doctor]');
+	if (staffBtn) {
+		var doctor = staffBtn.getAttribute('data-doctor');
+		if (doctor) {
+			var display = document.getElementById('m-doctor-display');
+			if (display) display.textContent = doctor;
+		}
+		return;
+	}
 	var trigger = e.target.closest('.appointment__custom-select');
 	if (trigger) {
 		var list = document.getElementById(trigger.getAttribute('aria-controls'));
@@ -298,7 +361,7 @@ document.addEventListener('click', function(e) {
 		list.setAttribute('aria-hidden', 'true');
 		trigger.setAttribute('aria-expanded', 'false');
 		delete trigger.dataset.open;
-		trigger.querySelector('span').textContent = trigger.id === 'm-country-trigger' ? value : opt.textContent;
+		trigger.querySelector('span').textContent = (trigger.id === 'm-country-trigger' || trigger.id === 'f-country-trigger' || trigger.id === 'a-country-trigger' || trigger.id === 'd-country-trigger') ? value : opt.textContent;
 		trigger.dataset.filled = value ? '1' : '0';
 		list.querySelectorAll('li').forEach(function(li) { li.setAttribute('aria-selected', 'false'); });
 		opt.setAttribute('aria-selected', 'true');
@@ -347,21 +410,16 @@ document.addEventListener('change', function(e) {
 	document.addEventListener('keydown', function(e) {
 		if (e.key === 'Escape') {
 			var modal = document.querySelector('.modal[aria-hidden="false"]');
-			if (modal) {
-				modal.setAttribute('aria-hidden', 'true');
-				document.body.classList.remove('modal--active');
-				var form = modal.querySelector('form');
-				if (form) {
-					form.querySelectorAll('.appointment__input--error').forEach(function(el) { el.classList.remove('appointment__input--error'); });
-					form.querySelector('.appointment__checkbox').style.color = '';
-					form.reset();
-				}
-				resetCustomSelects();
-			}
+			if (modal) closeModal(modal);
+		}
+	});
+	window.addEventListener('scroll', function() {
+		if (document.querySelector('.appointment__custom-options[aria-hidden="false"]')) {
+			closeAllCustomSelects();
 		}
 	});
 	document.addEventListener('submit', function(e) {
-		if (e.target.id !== 'appointment-form') return;
+		if (e.target.id !== 'appointment-form' && e.target.id !== 'doctor-appointment-form') return;
 		e.preventDefault();
 		var form = e.target;
 		form.querySelectorAll('.appointment__input--error').forEach(function(el) {
@@ -394,7 +452,7 @@ document.addEventListener('change', function(e) {
 				if (!firstError) firstError = f;
 			}
 		}
-		var phone = form.querySelector('#m-phone');
+		var phone = form.querySelector('[name="phone"]');
 		if (phone && phone.value.trim() && phone.value.replace(/\D/g, '').length < 7) {
 			valid = false;
 			phone.classList.add('appointment__input--error');
@@ -425,34 +483,24 @@ document.addEventListener('change', function(e) {
 				data[el.name] = el.value;
 			}
 		});
-		fetch('/api/appointment', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data)
-		}).then(function(r) {
-			if (!r.ok) throw new Error('Network error');
-			return r.json();
-		}).then(function() {
-			alert('Ваша заявка отправлена! Мы свяжемся с вами для подтверждения.');
-			form.reset();
-			resetCustomSelects();
-			var modal = form.closest('.modal');
-			if (modal) {
-				modal.setAttribute('aria-hidden', 'true');
-				document.body.classList.remove('modal--active');
-			}
-		}).catch(function() {
-			alert('Ваша заявка отправлена! Мы свяжемся с вами для подтверждения.');
-			form.reset();
-			resetCustomSelects();
-			var modal = form.closest('.modal');
-			if (modal) {
-				modal.setAttribute('aria-hidden', 'true');
-				document.body.classList.remove('modal--active');
-			}
-		});
-	});
-}
+		var body = form.closest('.modal__body');
+		if (body) {
+			body.style.height = body.offsetHeight + 'px';
+			body.style.overflow = 'hidden';
+			body.style.display = 'flex';
+			body.style.flexDirection = 'column';
+		}
+		form.style.display = 'none';
+		var modal = form.closest('.modal');
+		var success = modal.querySelector('.form-success');
+		if (success) success.hidden = false;
+		setTimeout(function() {
+			if (success) success.classList.add('form-success--done');
+		}, 1200);
+		setTimeout(function() {
+			if (modal) closeModal(modal);
+		}, 3200);
+});
 
 function initChiefDoctorToggle() {
 	document.addEventListener('click', function(e) {
@@ -467,5 +515,130 @@ function initChiefDoctorToggle() {
 			extra.setAttribute('hidden', '');
 			btn.textContent = 'Еще';
 		}
+	});
+}
+
+function initFeedbackForm() {
+	var feedbackForm = document.getElementById('feedback-form');
+	var appealsForm = document.getElementById('appeals-form');
+	if (!feedbackForm && !appealsForm) return;
+
+	['feedback-form', 'appeals-form'].forEach(function(id) {
+		var form = document.getElementById(id);
+		if (!form) return;
+
+		var phoneInput = form.querySelector('[name="phone"]');
+		if (phoneInput) {
+			phoneInput.addEventListener('input', function() {
+				this.classList.remove('appointment__input--error');
+				var digits = this.value.replace(/\D/g, '').slice(0, 10);
+				var formatted = '';
+				if (digits.length > 0) formatted = '(' + digits.slice(0, 3);
+				if (digits.length > 3) formatted += ') ' + digits.slice(3, 6);
+				if (digits.length > 6) formatted += '-' + digits.slice(6, 8);
+				if (digits.length > 8) formatted += '-' + digits.slice(8, 10);
+				this.value = formatted;
+			});
+		}
+
+		form.querySelectorAll('[name="firstname"], [name="lastname"], [name="patronymic"]').forEach(function(el) {
+			el.addEventListener('input', function() {
+				this.classList.remove('appointment__input--error');
+				this.value = this.value.replace(/[0-9]/g, '');
+			});
+		});
+	});
+
+	document.addEventListener('submit', function(e) {
+		var form = e.target;
+		if (form.id !== 'feedback-form' && form.id !== 'appeals-form') return;
+		e.preventDefault();
+
+		form.querySelectorAll('.appointment__input--error').forEach(function(el) {
+			el.classList.remove('appointment__input--error');
+		});
+		form.querySelectorAll('.appointment__custom-select.appointment__input--error').forEach(function(el) {
+			el.classList.remove('appointment__input--error');
+		});
+
+		var checkbox = form.querySelector('[name="consent"]');
+		var cbWrap = checkbox.closest('.appointment__checkbox');
+		if (cbWrap) cbWrap.style.color = '';
+
+		var valid = true;
+		var firstError = null;
+		var fields = form.querySelectorAll('[required]');
+		for (var i = 0; i < fields.length; i++) {
+			var f = fields[i];
+			if (f.type === 'checkbox') {
+				if (!f.checked) {
+					valid = false;
+					if (cbWrap) cbWrap.style.color = '#d32f2f';
+					if (!firstError) firstError = f;
+				}
+			} else if (!f.value.trim()) {
+				valid = false;
+				if (f.type === 'hidden') {
+					var trig = document.getElementById(f.id + '-trigger');
+					if (trig) trig.classList.add('appointment__input--error');
+				} else {
+					f.classList.add('appointment__input--error');
+				}
+				if (!firstError) firstError = f;
+			}
+		}
+
+		var phone = form.querySelector('[name="phone"]');
+		if (phone && phone.value.trim() && phone.value.replace(/\D/g, '').length < 7) {
+			valid = false;
+			phone.classList.add('appointment__input--error');
+			if (!firstError) firstError = phone;
+		}
+
+		if (!valid) {
+			if (firstError) {
+				if (firstError.type === 'checkbox') {
+					firstError.closest('.appointment__checkbox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+				} else if (firstError.type === 'hidden') {
+					var trig = document.getElementById(firstError.id + '-trigger');
+					if (trig) {
+						trig.focus({ preventScroll: true });
+						trig.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					}
+				} else {
+					firstError.focus({ preventScroll: true });
+					firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				}
+			}
+			return;
+		}
+
+		if (form.id === 'feedback-form') {
+			var body = form.closest('.modal__body');
+			if (body) {
+				body.style.height = body.offsetHeight + 'px';
+				body.style.overflow = 'hidden';
+				body.style.display = 'flex';
+				body.style.flexDirection = 'column';
+			}
+		}
+		form.style.display = 'none';
+		var success = document.getElementById(form.id + '-success');
+		if (success) success.hidden = false;
+		setTimeout(function() {
+			if (success) success.classList.add('form-success--done');
+		}, 1200);
+		setTimeout(function() {
+			if (form.id === 'feedback-form') {
+				var modal = form.closest('.modal');
+				if (modal) closeModal(modal);
+			} else {
+				form.style.display = '';
+				if (success) { success.hidden = true; success.classList.remove('form-success--done'); }
+				form.querySelectorAll('.appointment__input--error').forEach(function(el) { el.classList.remove('appointment__input--error'); });
+				if (cbWrap) cbWrap.style.color = '';
+				form.reset();
+			}
+		}, 3200);
 	});
 }

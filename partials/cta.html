@@ -17,15 +17,14 @@
 							</div>
 							<div class="bf-2__content">
 								<div class="bf-2__description">
-									<span class="bf-2__text">Не смогли записаться к врачу?</span>
+									<span class="bf-2__text">Хотите оставить обращение?</span>
 									<span class="bf-2__text bf-2__text_small"
-										>Столкнулись с проблемой&nbsp;— сообщите о ней!</span
+										>Ваше мнение важно для нас&nbsp;— напишите нам!</span
 									>
 								</div>
 								<div class="bf-2__btn-wrap">
-									<!-- pos-banner-btn_2 не удалять; другие классы не добавлять -->
-									<button class="pos-banner-btn_2" type="button" style="width: 240px">
-										Сообщить о проблеме
+									<button class="pos-banner-btn_2" type="button" data-modal-open="feedback-modal" style="width: 240px">
+										Оставить обращение
 									</button>
 								</div>
 							</div>
@@ -34,6 +33,246 @@
 				</div>
 			</div>
 			<div class="cta__aside-gap" aria-hidden="true"></div>
+		</div>
+	</div>
+
+	<div class="modal" id="feedback-modal" aria-hidden="true">
+		<div class="modal__backdrop" data-modal-close></div>
+		<div class="modal__body">
+			<div class="modal__header">
+				<h2 class="modal__title">Оставить обращение</h2>
+				<button class="modal__close" type="button" data-modal-close aria-label="Закрыть"></button>
+			</div>
+			<form class="appointment__form" id="feedback-form" novalidate>
+				<div class="appointment__row">
+					<div class="appointment__field appointment__field--float">
+						<input class="appointment__input" type="text" id="f-lastname" name="lastname" placeholder=" " required />
+						<label class="appointment__label appointment__label--float" for="f-lastname">Фамилия</label>
+					</div>
+					<div class="appointment__field appointment__field--float">
+						<input class="appointment__input" type="text" id="f-firstname" name="firstname" placeholder=" " required />
+						<label class="appointment__label appointment__label--float" for="f-firstname">Имя</label>
+					</div>
+				</div>
+				<div class="appointment__row appointment__row--phone">
+					<div class="appointment__field appointment__field--code appointment__field--float">
+						<input type="hidden" name="country" value="+7" id="f-country" required />
+						<div class="appointment__custom-select" id="f-country-trigger" tabindex="0" role="combobox" aria-expanded="false" aria-controls="f-country-list" data-filled="1">
+							<span class="appointment__code-display">+7</span>
+						</div>
+						<ul class="appointment__custom-options" id="f-country-list" role="listbox" aria-hidden="true">
+							<li role="option" data-value="+7" aria-selected="true">(Россия) +7</li>
+							<li role="option" data-value="+93">(Афганистан) +93</li>
+							<li role="option" data-value="+355">(Албания) +355</li>
+							<li role="option" data-value="+213">(Алжир) +213</li>
+							<li role="option" data-value="+54">(Аргентина) +54</li>
+							<li role="option" data-value="+374">(Армения) +374</li>
+							<li role="option" data-value="+61">(Австралия) +61</li>
+							<li role="option" data-value="+43">(Австрия) +43</li>
+							<li role="option" data-value="+994">(Азербайджан) +994</li>
+							<li role="option" data-value="+973">(Бахрейн) +973</li>
+							<li role="option" data-value="+880">(Бангладеш) +880</li>
+							<li role="option" data-value="+375">(Беларусь) +375</li>
+							<li role="option" data-value="+32">(Бельгия) +32</li>
+							<li role="option" data-value="+501">(Белиз) +501</li>
+							<li role="option" data-value="+229">(Бенин) +229</li>
+							<li role="option" data-value="+591">(Боливия) +591</li>
+							<li role="option" data-value="+387">(Босния и Герцеговина) +387</li>
+							<li role="option" data-value="+267">(Ботсвана) +267</li>
+							<li role="option" data-value="+55">(Бразилия) +55</li>
+							<li role="option" data-value="+673">(Бруней) +673</li>
+							<li role="option" data-value="+359">(Болгария) +359</li>
+							<li role="option" data-value="+226">(Буркина-Фасо) +226</li>
+							<li role="option" data-value="+257">(Бурунди) +257</li>
+							<li role="option" data-value="+855">(Камбоджа) +855</li>
+							<li role="option" data-value="+237">(Камерун) +237</li>
+							<li role="option" data-value="+1">(Канада) +1</li>
+							<li role="option" data-value="+238">(Кабо-Верде) +238</li>
+							<li role="option" data-value="+236">(ЦАР) +236</li>
+							<li role="option" data-value="+235">(Чад) +235</li>
+							<li role="option" data-value="+56">(Чили) +56</li>
+							<li role="option" data-value="+86">(Китай) +86</li>
+							<li role="option" data-value="+57">(Колумбия) +57</li>
+							<li role="option" data-value="+269">(Коморы) +269</li>
+							<li role="option" data-value="+242">(Республика Конго) +242</li>
+							<li role="option" data-value="+243">(ДР Конго) +243</li>
+							<li role="option" data-value="+506">(Коста-Рика) +506</li>
+							<li role="option" data-value="+385">(Хорватия) +385</li>
+							<li role="option" data-value="+53">(Куба) +53</li>
+							<li role="option" data-value="+357">(Кипр) +357</li>
+							<li role="option" data-value="+420">(Чехия) +420</li>
+							<li role="option" data-value="+45">(Дания) +45</li>
+							<li role="option" data-value="+253">(Джибути) +253</li>
+							<li role="option" data-value="+1">(Доминикана) +1</li>
+							<li role="option" data-value="+593">(Эквадор) +593</li>
+							<li role="option" data-value="+20">(Египет) +20</li>
+							<li role="option" data-value="+503">(Сальвадор) +503</li>
+							<li role="option" data-value="+372">(Эстония) +372</li>
+							<li role="option" data-value="+251">(Эфиопия) +251</li>
+							<li role="option" data-value="+679">(Фиджи) +679</li>
+							<li role="option" data-value="+358">(Финляндия) +358</li>
+							<li role="option" data-value="+33">(Франция) +33</li>
+							<li role="option" data-value="+241">(Габон) +241</li>
+							<li role="option" data-value="+220">(Гамбия) +220</li>
+							<li role="option" data-value="+995">(Грузия) +995</li>
+							<li role="option" data-value="+49">(Германия) +49</li>
+							<li role="option" data-value="+233">(Гана) +233</li>
+							<li role="option" data-value="+30">(Греция) +30</li>
+							<li role="option" data-value="+502">(Гватемала) +502</li>
+							<li role="option" data-value="+224">(Гвинея) +224</li>
+							<li role="option" data-value="+245">(Гвинея-Бисау) +245</li>
+							<li role="option" data-value="+592">(Гайана) +592</li>
+							<li role="option" data-value="+509">(Гаити) +509</li>
+							<li role="option" data-value="+504">(Гондурас) +504</li>
+							<li role="option" data-value="+852">(Гонконг) +852</li>
+							<li role="option" data-value="+36">(Венгрия) +36</li>
+							<li role="option" data-value="+354">(Исландия) +354</li>
+							<li role="option" data-value="+91">(Индия) +91</li>
+							<li role="option" data-value="+62">(Индонезия) +62</li>
+							<li role="option" data-value="+98">(Иран) +98</li>
+							<li role="option" data-value="+964">(Ирак) +964</li>
+							<li role="option" data-value="+353">(Ирландия) +353</li>
+							<li role="option" data-value="+972">(Израиль) +972</li>
+							<li role="option" data-value="+39">(Италия) +39</li>
+							<li role="option" data-value="+225">(Кот-д'Ивуар) +225</li>
+							<li role="option" data-value="+81">(Япония) +81</li>
+							<li role="option" data-value="+962">(Иордания) +962</li>
+							<li role="option" data-value="+7">(Казахстан) +7</li>
+							<li role="option" data-value="+254">(Кения) +254</li>
+							<li role="option" data-value="+383">(Косово) +383</li>
+							<li role="option" data-value="+965">(Кувейт) +965</li>
+							<li role="option" data-value="+996">(Кыргызстан) +996</li>
+							<li role="option" data-value="+856">(Лаос) +856</li>
+							<li role="option" data-value="+371">(Латвия) +371</li>
+							<li role="option" data-value="+961">(Ливан) +961</li>
+							<li role="option" data-value="+266">(Лесото) +266</li>
+							<li role="option" data-value="+231">(Либерия) +231</li>
+							<li role="option" data-value="+218">(Ливия) +218</li>
+							<li role="option" data-value="+423">(Лихтенштейн) +423</li>
+							<li role="option" data-value="+370">(Литва) +370</li>
+							<li role="option" data-value="+352">(Люксембург) +352</li>
+							<li role="option" data-value="+853">(Макао) +853</li>
+							<li role="option" data-value="+389">(Северная Македония) +389</li>
+							<li role="option" data-value="+261">(Мадагаскар) +261</li>
+							<li role="option" data-value="+265">(Малави) +265</li>
+							<li role="option" data-value="+60">(Малайзия) +60</li>
+							<li role="option" data-value="+960">(Мальдивы) +960</li>
+							<li role="option" data-value="+223">(Мали) +223</li>
+							<li role="option" data-value="+356">(Мальта) +356</li>
+							<li role="option" data-value="+222">(Мавритания) +222</li>
+							<li role="option" data-value="+230">(Маврикий) +230</li>
+							<li role="option" data-value="+52">(Мексика) +52</li>
+							<li role="option" data-value="+373">(Молдова) +373</li>
+							<li role="option" data-value="+377">(Монако) +377</li>
+							<li role="option" data-value="+976">(Монголия) +976</li>
+							<li role="option" data-value="+382">(Черногория) +382</li>
+							<li role="option" data-value="+212">(Марокко) +212</li>
+							<li role="option" data-value="+258">(Мозамбик) +258</li>
+							<li role="option" data-value="+95">(Мьянма) +95</li>
+							<li role="option" data-value="+264">(Намибия) +264</li>
+							<li role="option" data-value="+977">(Непал) +977</li>
+							<li role="option" data-value="+31">(Нидерланды) +31</li>
+							<li role="option" data-value="+64">(Новая Зеландия) +64</li>
+							<li role="option" data-value="+505">(Никарагуа) +505</li>
+							<li role="option" data-value="+227">(Нигер) +227</li>
+							<li role="option" data-value="+234">(Нигерия) +234</li>
+							<li role="option" data-value="+47">(Норвегия) +47</li>
+							<li role="option" data-value="+968">(Оман) +968</li>
+							<li role="option" data-value="+92">(Пакистан) +92</li>
+							<li role="option" data-value="+970">(Палестина) +970</li>
+							<li role="option" data-value="+507">(Панама) +507</li>
+							<li role="option" data-value="+595">(Парагвай) +595</li>
+							<li role="option" data-value="+51">(Перу) +51</li>
+							<li role="option" data-value="+63">(Филиппины) +63</li>
+							<li role="option" data-value="+48">(Польша) +48</li>
+							<li role="option" data-value="+351">(Португалия) +351</li>
+							<li role="option" data-value="+974">(Катар) +974</li>
+							<li role="option" data-value="+40">(Румыния) +40</li>
+							<li role="option" data-value="+250">(Руанда) +250</li>
+							<li role="option" data-value="+378">(Сан-Марино) +378</li>
+							<li role="option" data-value="+966">(Саудовская Аравия) +966</li>
+							<li role="option" data-value="+221">(Сенегал) +221</li>
+							<li role="option" data-value="+381">(Сербия) +381</li>
+							<li role="option" data-value="+248">(Сейшелы) +248</li>
+							<li role="option" data-value="+232">(Сьерра-Леоне) +232</li>
+							<li role="option" data-value="+65">(Сингапур) +65</li>
+							<li role="option" data-value="+421">(Словакия) +421</li>
+							<li role="option" data-value="+386">(Словения) +386</li>
+							<li role="option" data-value="+252">(Сомали) +252</li>
+							<li role="option" data-value="+27">(ЮАР) +27</li>
+							<li role="option" data-value="+82">(Южная Корея) +82</li>
+							<li role="option" data-value="+211">(Южный Судан) +211</li>
+							<li role="option" data-value="+34">(Испания) +34</li>
+							<li role="option" data-value="+94">(Шри-Ланка) +94</li>
+							<li role="option" data-value="+249">(Судан) +249</li>
+							<li role="option" data-value="+597">(Суринам) +597</li>
+							<li role="option" data-value="+268">(Эсватини) +268</li>
+							<li role="option" data-value="+46">(Швеция) +46</li>
+							<li role="option" data-value="+41">(Швейцария) +41</li>
+							<li role="option" data-value="+963">(Сирия) +963</li>
+							<li role="option" data-value="+886">(Тайвань) +886</li>
+							<li role="option" data-value="+992">(Таджикистан) +992</li>
+							<li role="option" data-value="+255">(Танзания) +255</li>
+							<li role="option" data-value="+66">(Таиланд) +66</li>
+							<li role="option" data-value="+228">(Того) +228</li>
+							<li role="option" data-value="+676">(Тонга) +676</li>
+							<li role="option" data-value="+216">(Тунис) +216</li>
+							<li role="option" data-value="+90">(Турция) +90</li>
+							<li role="option" data-value="+993">(Туркменистан) +993</li>
+							<li role="option" data-value="+256">(Уганда) +256</li>
+							<li role="option" data-value="+380">(Украина) +380</li>
+							<li role="option" data-value="+971">(ОАЭ) +971</li>
+							<li role="option" data-value="+44">(Великобритания) +44</li>
+							<li role="option" data-value="+1">(США) +1</li>
+							<li role="option" data-value="+598">(Уругвай) +598</li>
+							<li role="option" data-value="+998">(Узбекистан) +998</li>
+							<li role="option" data-value="+678">(Вануату) +678</li>
+							<li role="option" data-value="+379">(Ватикан) +379</li>
+							<li role="option" data-value="+58">(Венесуэла) +58</li>
+							<li role="option" data-value="+84">(Вьетнам) +84</li>
+							<li role="option" data-value="+681">(Уоллис и Футуна) +681</li>
+							<li role="option" data-value="+967">(Йемен) +967</li>
+							<li role="option" data-value="+260">(Замбия) +260</li>
+							<li role="option" data-value="+263">(Зимбабве) +263</li>
+						</ul>
+						<label class="appointment__label appointment__label--float" for="f-country">Код страны</label>
+					</div>
+					<div class="appointment__field appointment__field--num appointment__field--float">
+						<input class="appointment__input" type="tel" id="f-phone" name="phone" placeholder=" " required autocomplete="tel-national" />
+						<label class="appointment__label appointment__label--float" for="f-phone">Номер телефона</label>
+					</div>
+				</div>
+				<div class="appointment__row">
+					<div class="appointment__field appointment__field--full appointment__field--float">
+						<input class="appointment__input" type="email" id="f-email" name="email" placeholder=" " />
+						<label class="appointment__label appointment__label--float" for="f-email">Электронная почта</label>
+					</div>
+				</div>
+				<div class="appointment__row">
+					<div class="appointment__field appointment__field--full appointment__field--float">
+						<textarea class="appointment__input appointment__textarea" id="f-msg" name="message" rows="4" placeholder=" "></textarea>
+						<label class="appointment__label appointment__label--float" for="f-msg">Комментарий</label>
+					</div>
+				</div>
+				<div class="appointment__row">
+					<label class="appointment__checkbox">
+						<input type="checkbox" name="consent" required />
+						<span class="appointment__consent-text">Я согласен на <a href="consent.html" target="_blank" class="appointment__consent-link">обработку персональных данных</a></span>
+					</label>
+				</div>
+				<div class="appointment__row">
+					<button class="btn appointment__submit" type="submit">Отправить</button>
+				</div>
+			</form>
+			<div class="form-success" id="feedback-success" hidden>
+				<div class="form-success__spinner"></div>
+				<svg class="form-success__check" viewBox="0 0 80 80" width="64" height="64">
+					<circle class="form-success__circle" cx="40" cy="40" r="36" fill="none" stroke="#1976d2" stroke-width="4"/>
+					<path class="form-success__path" d="M22 42l12 12 24-28" fill="none" stroke="#1976d2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				<p class="form-success__text">Спасибо!</p>
+				<p class="form-success__subtext">Ваше обращение отправлено. Мы свяжемся с вами в ближайшее время.</p>
+			</div>
 		</div>
 	</div>
 </section>

@@ -119,4 +119,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 	if (typeof initSearch === 'function') initSearch();
 	if (typeof initAppointmentModal === 'function') initAppointmentModal();
 	if (typeof initChiefDoctorToggle === 'function') initChiefDoctorToggle();
+	if (typeof initFeedbackForm === 'function') initFeedbackForm();
 });
