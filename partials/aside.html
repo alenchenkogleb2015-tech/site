@@ -1,0 +1,87 @@
+<aside class="site-aside">
+	<div class="sidebar-banner">
+		<div class="sidebar-banner__inner">
+			<div class="sidebar-banner__content">
+				<h2 class="sidebar-banner__title">Запись на прием к врачу</h2>
+				<p class="sidebar-banner__text">Удобно, быстро и без очередей</p>
+				<button type="button" class="btn sidebar-banner__btn" data-modal-open="appointment-modal">Записаться на прием</button>
+			</div>
+			<div class="sidebar-banner__media">
+				<img
+					class="sidebar-banner__photo"
+					src="assets/images/max.png"
+					alt=""
+					width="140"
+					height="200"
+				/>
+			</div>
+		</div>
+	</div>
+	<div
+		class="site-aside__map contacts-map"
+		data-aside-map
+		hidden
+		aria-label="Карта проезда"
+	>
+		<div class="contacts-map__widget">
+			<a
+				href="https://yandex.ru/maps?utm_medium=mapframe&utm_source=maps"
+				class="contacts-map__link contacts-map__link--yandex"
+				target="_blank"
+				rel="noopener noreferrer"
+				>Яндекс Карты</a
+			>
+			<a
+				href="https://yandex.ru/maps/10243/jewish-autonomous-oblast/house/bolnichnaya_ulitsa_16/ZUoCaABoTU0BXEJua2J0dHtqZwg=/?ll=134.784860%2C48.557930&utm_medium=mapframe&utm_source=maps&z=17.08"
+				class="contacts-map__link contacts-map__link--address"
+				target="_blank"
+				rel="noopener noreferrer"
+				>Больничная улица, 16 — Яндекс Карты</a
+			>
+			<iframe
+				src="https://yandex.ru/map-widget/v1/?ll=134.784860%2C48.557930&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgoyMTUzOTY0MzU2Es4B0KDQvtGB0YHQuNGPLCDQldCy0YDQtdC50YHQutCw0Y8g0LDQstGC0L7QvdC-0LzQvdCw0Y8g0L7QsdC70LDRgdGC0YwsINCh0LzQuNC00L7QstC40YfRgdC60LjQuSDQvNGD0L3QuNGG0LjQv9Cw0LvRjNC90YvQuSDRgNCw0LnQvtC9LCDQv9C-0YHRkdC70L7QuiDQndC40LrQvtC70LDQtdCy0LrQsCwg0JHQvtC70YzQvdC40YfQvdCw0Y8g0YPQu9C40YbQsCwgMTYiCg3tyAZDFVI7QkI%2C&z=17.08"
+				width="100%"
+				height="280"
+				frameborder="0"
+				allowfullscreen
+				title="Карта — Больничная улица, 16"
+			></iframe>
+		</div>
+	</div>
+
+	<div class="modal" id="appointment-modal" aria-hidden="true">
+		<div class="modal__backdrop" data-modal-close></div>
+		<div class="modal__body">
+			<div class="modal__header">
+				<h2 class="modal__title">Запись на прием</h2>
+				<button class="modal__close" type="button" data-modal-close aria-label="Закрыть"></button>
+			</div>
+			<div class="appointment__modal-actions">
+				<a href="https://www.gosuslugi.ru/10066/1" target="_blank" rel="noopener noreferrer" class="appointment__modal-btn">
+					Записаться через <img src="assets/images/icons/gosuslugi-logo.svg" alt="Госуслуги" width="96" height="96" style="margin-top: 4px" />
+				</a>
+				<a href="https://max.ru/depzdrav_eao_bot" target="_blank" rel="noopener noreferrer" class="appointment__modal-btn">
+					Записаться через <img src="assets/images/icons/max-logo.svg" alt="Макс" width="64" height="64" />
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="doctor-appointment-modal" aria-hidden="true">
+		<div class="modal__backdrop" data-modal-close></div>
+		<div class="modal__body">
+			<div class="modal__header">
+				<h2 class="modal__title">Запись на прием к врачу</h2>
+				<button class="modal__close" type="button" data-modal-close aria-label="Закрыть"></button>
+			</div>
+			<div class="appointment__modal-actions">
+				<a href="https://www.gosuslugi.ru/10066/1" target="_blank" rel="noopener noreferrer" class="appointment__modal-btn">
+					Записаться через <img src="assets/images/icons/gosuslugi-logo.svg" alt="Госуслуги" width="96" height="96" style="margin-top: 4px" />
+				</a>
+				<a href="https://max.ru/depzdrav_eao_bot" target="_blank" rel="noopener noreferrer" class="appointment__modal-btn">
+					Записаться через <img src="assets/images/icons/max-logo.svg" alt="Макс" width="64" height="64" />
+				</a>
+			</div>
+		</div>
+	</div>
+</aside>

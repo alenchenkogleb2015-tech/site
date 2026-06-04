@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>UI компоненты — Николаевская РБ</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="css/styles.css" />
+	<link rel="icon" href="assets/images/icon.svg" type="image/svg+xml" />
+</head>
+<body data-page="ui">
+	<div class="page__wrap">
+		<div data-partial="topbar"></div>
+		<div data-partial="header"></div>
+
+		<main class="main-layout__wrapper">
+			<div class="container">
+				<div class="breadcrumbs">
+					<img src="assets/images/icons/home.svg" alt="" width="16" height="16" />
+					<a href="index.html">Главная</a>
+					<span>/</span>
+					<span>UI компоненты</span>
+				</div>
+
+				<section class="section">
+					<h1 class="section-title">UI компоненты</h1>
+					<p style="margin-bottom: 40px; color: var(--text-secondary);">Полировка и тестирование всех компонентов сайта.</p>
+
+					<!-- ========== BUTTONS ========== -->
+					<h2 class="appeals__section-title">Кнопки</h2>
+					<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 40px;">
+						<button type="button" class="btn">Обычная кнопка</button>
+						<button type="button" class="btn appointment__submit">Кнопка формы</button>
+						<button type="button" class="chief-doctor__more">Еще</button>
+						<button type="button" class="structure-card__more">Подробнее</button>
+						<button type="button" class="topbar__icon-btn" aria-label="Кнопка">
+							<img src="assets/images/icons/eye.svg" alt="" width="20" height="20" />
+						</button>
+						<button type="button" class="modal__close" aria-label="Закрыть"></button>
+						<button type="button" class="pos-banner-btn_2" data-modal-open="feedback-modal">Оставить обращение</button>
+						<button type="button" class="btn consent__print-btn">Распечатать</button>
+					</div>
+
+					<!-- ========== FORMS ========== -->
+					<h2 class="appeals__section-title">Формы</h2>
+					<div style="max-width: 500px; margin-bottom: 40px;">
+						<form class="appointment__form" novalidate>
+							<div class="appointment__row">
+								<div class="appointment__field appointment__field--float">
+									<input class="appointment__input" type="text" id="ui-name" name="name" placeholder=" " required />
+									<label class="appointment__label appointment__label--float" for="ui-name">Имя</label>
+								</div>
+								<div class="appointment__field appointment__field--float">
+									<input class="appointment__input" type="text" id="ui-surname" name="surname" placeholder=" " required />
+									<label class="appointment__label appointment__label--float" for="ui-surname">Фамилия</label>
+								</div>
+							</div>
+							<div class="appointment__row appointment__row--phone">
+								<div class="appointment__field appointment__field--code appointment__field--float">
+									<select class="appointment__input appointment__select" id="ui-country" name="country" required>
+										<option value="+7" selected>(Россия) +7</option>
+										<option value="+375">(Беларусь) +375</option>
+										<option value="+7">(Казахстан) +7</option>
+										<option value="+380">(Украина) +380</option>
+									</select>
+									<label class="appointment__label appointment__label--float" for="ui-country">Код страны</label>
+								</div>
+								<div class="appointment__field appointment__field--num appointment__field--float">
+									<input class="appointment__input" type="tel" id="ui-phone" name="phone" placeholder=" " required autocomplete="tel-national" />
+									<label class="appointment__label appointment__label--float" for="ui-phone">Номер телефона</label>
+								</div>
+							</div>
+							<div class="appointment__row">
+								<div class="appointment__field appointment__field--full appointment__field--float">
+									<input class="appointment__input" type="email" id="ui-email" name="email" placeholder=" " />
+									<label class="appointment__label appointment__label--float" for="ui-email">Электронная почта</label>
+								</div>
+							</div>
+							<div class="appointment__row">
+								<div class="appointment__field appointment__field--full appointment__field--float">
+									<textarea class="appointment__input appointment__textarea" id="ui-msg" name="message" rows="4" placeholder=" " required></textarea>
+									<label class="appointment__label appointment__label--float" for="ui-msg">Сообщение</label>
+								</div>
+							</div>
+							<div class="appointment__row">
+								<label class="appointment__checkbox">
+									<input type="checkbox" name="consent" required />
+									<span class="appointment__consent-text">Я согласен на <a href="consent.html" target="_blank" class="appointment__consent-link">обработку персональных данных</a></span>
+								</label>
+							</div>
+							<div class="appointment__row">
+								<button class="btn appointment__submit" type="submit">Отправить</button>
+							</div>
+						</form>
+					</div>
+
+					<!-- ========== FIELD STATES ========== -->
+					<h2 class="appeals__section-title">Состояния полей</h2>
+					<div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 40px;">
+						<div class="appointment__field appointment__field--float" style="width: 200px;">
+							<input class="appointment__input" type="text" placeholder=" " value="Заполнено" />
+							<label class="appointment__label appointment__label--float">Заполнено</label>
+						</div>
+						<div class="appointment__field appointment__field--float" style="width: 200px;">
+							<input class="appointment__input appointment__input--error" type="text" placeholder=" " />
+							<label class="appointment__label appointment__label--float">Ошибка</label>
+						</div>
+					</div>
+
+					<!-- ========== ACCORDIONS ========== -->
+					<h2 class="appeals__section-title">Аккордеоны</h2>
+					<div style="max-width: 700px; margin-bottom: 40px;">
+						<div class="documents-accordion">
+							<details class="documents-category">
+								<summary class="documents-category__summary">Документы (пример)</summary>
+								<div class="documents-category__panel">
+									<ul class="documents-list">
+										<li><a href="#" target="_blank">Пример документа №1</a></li>
+										<li><a href="#" target="_blank">Пример документа №2</a></li>
+										<li><a href="#" target="_blank">Пример документа №3</a></li>
+									</ul>
+								</div>
+							</details>
+							<details class="documents-category">
+								<summary class="documents-category__summary">Ещё документы</summary>
+								<div class="documents-category__panel">
+									<ul class="documents-list">
+										<li><a href="#" target="_blank">Документ A</a></li>
+										<li><a href="#" target="_blank">Документ B</a></li>
+									</ul>
+								</div>
+							</details>
+						</div>
+					</div>
+
+					<!-- ========== LISTS ========== -->
+					<h2 class="appeals__section-title">Списки</h2>
+					<div style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 40px;">
+						<div style="max-width: 400px; flex: 1;">
+							<h3 style="font-size: 14px; margin-bottom: 8px; color: var(--text-secondary);">documents-list</h3>
+							<ul class="documents-list">
+								<li><a href="#" target="_blank">Приказ №123 от 01.01.2024</a></li>
+								<li><a href="#" target="_blank">Распоряжение №456 от 15.02.2024</a></li>
+								<li><a href="#" target="_blank">Постановление №789 от 20.03.2024</a></li>
+							</ul>
+						</div>
+						<div style="max-width: 400px; flex: 1;">
+							<h3 style="font-size: 14px; margin-bottom: 8px; color: var(--text-secondary);">contacts-phones</h3>
+							<ul class="contacts-phones">
+								<li class="contacts-phones__item">
+									<span class="contacts-phones__label">Приёмная:</span>
+									<span class="contacts-phones__dots" aria-hidden="true"></span>
+									<a class="contacts-phones__number" href="tel:+74263221462">+7 (42632) 21-4-62</a>
+								</li>
+								<li class="contacts-phones__item">
+									<span class="contacts-phones__label">Регистратура:</span>
+									<span class="contacts-phones__dots" aria-hidden="true"></span>
+									<a class="contacts-phones__number" href="tel:+74263221503">+7 (42632) 21-5-03</a>
+								</li>
+							</ul>
+						</div>
+						<div style="max-width: 400px; flex: 1;">
+							<h3 style="font-size: 14px; margin-bottom: 8px; color: var(--text-secondary);">structure-list</h3>
+							<ul class="structure-list">
+								<li>Терапевтическое отделение</li>
+								<li>Хирургическое отделение</li>
+								<li>Детское отделение</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- ========== TABLES ========== -->
+					<h2 class="appeals__section-title">Таблицы</h2>
+					<div style="max-width: 700px; margin-bottom: 40px;">
+						<div class="structure-table-wrap">
+							<table class="structure-table">
+								<thead>
+									<tr>
+										<th>Наименование</th>
+										<th>Функции</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td data-label="Наименование">Отдел кадров</td>
+										<td data-label="Функции">Кадровое делопроизводство</td>
+									</tr>
+									<tr>
+										<td data-label="Наименование">Бухгалтерия</td>
+										<td data-label="Функции">Финансовый учёт</td>
+									</tr>
+									<tr>
+										<td data-label="Наименование">Хозяйственный отдел</td>
+										<td data-label="Функции">Материальное обеспечение</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- ========== CARDS ========== -->
+					<h2 class="appeals__section-title">Карточки</h2>
+					<div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 40px;">
+						<a href="#" class="patients-card" style="flex: 0 0 260px;">
+							<div class="patients-card__icon">
+								<img src="assets/images/icons/patient.svg" alt="" width="48" height="48" />
+							</div>
+							<h3 class="patients-card__title">Пациентам</h3>
+							<p class="patients-card__text">Информация для пациентов</p>
+						</a>
+						<a href="#" class="patients-card" style="flex: 0 0 260px;">
+							<div class="patients-card__icon">
+								<img src="assets/images/icons/schedule.svg" alt="" width="48" height="48" />
+							</div>
+							<h3 class="patients-card__title">Расписание</h3>
+							<p class="patients-card__text">График работы врачей</p>
+						</a>
+					</div>
+
+					<!-- ========== STAFF CARD ========== -->
+					<h3 style="font-size: 14px; margin-bottom: 8px; color: var(--text-secondary);">staff__card (вертикальная, с кнопкой)</h3>
+					<div style="max-width: 300px; margin-bottom: 40px;">
+						<div class="staff__card">
+							<div class="staff__card-inner">
+								<div class="staff__card-icon">
+									<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+										<circle cx="12" cy="7" r="4"/>
+									</svg>
+								</div>
+								<div class="staff__card-info">
+									<div class="staff__card-name">Иванов Иван Иванович</div>
+									<div class="staff__card-role">Врач-терапевт</div>
+									<div class="staff__card-meta">
+										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+										Поликлиника, каб. 101
+									</div>
+								</div>
+							</div>
+							<button type="button" class="staff__card-btn">Записаться на приём</button>
+						</div>
+					</div>
+
+					<!-- ========== STRUCTURE CARD ========== -->
+					<h3 style="font-size: 14px; margin-bottom: 8px; color: var(--text-secondary);">structure-card</h3>
+					<div style="max-width: 380px; margin-bottom: 40px;">
+						<div class="structure-card">
+							<div class="structure-card__inner">
+								<div class="structure-card__icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+										<circle cx="9" cy="7" r="4"/>
+										<path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+										<path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+									</svg>
+								</div>
+								<div class="structure-card__info">
+									<h3 class="structure-card__name">Григорьева Л.В.</h3>
+									<p class="structure-card__role">Главный врач</p>
+									<p class="structure-card__contact">тел. 21-4-62</p>
+								</div>
+							</div>
+							<div class="structure-card__body">
+								<p>Курирует лечебную работу, организует контроль качества медицинской помощи.</p>
+							</div>
+							<button type="button" class="structure-card__more">Подробнее</button>
+						</div>
+					</div>
+
+					<!-- ========== BADGES ========== -->
+					<h2 class="appeals__section-title">Бейджи</h2>
+					<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 40px;">
+						<span class="badge badge--work">15:00–17:00</span>
+						<span class="badge badge--work">08:00–18:00</span>
+						<span class="badge badge--work">09:00–15:00</span>
+					</div>
+
+					<!-- ========== SCHEDULE WEEK ========== -->
+					<h2 class="appeals__section-title">Расписание недели</h2>
+					<div style="max-width: 600px; margin-bottom: 40px;">
+						<div class="schedule-week">
+							<div class="schedule-day">
+								<span class="schedule-day__name">Понедельник</span>
+								<span class="schedule-day__badge schedule-day__badge--work">8:00-18:00</span>
+							</div>
+							<div class="schedule-day">
+								<span class="schedule-day__name">Вторник</span>
+								<span class="schedule-day__badge schedule-day__badge--work">8:00-18:00</span>
+							</div>
+							<div class="schedule-day">
+								<span class="schedule-day__name">Среда</span>
+								<span class="schedule-day__badge schedule-day__badge--work">8:00-18:00</span>
+							</div>
+							<div class="schedule-day">
+								<span class="schedule-day__name">Четверг</span>
+								<span class="schedule-day__badge schedule-day__badge--work">8:00-18:00</span>
+							</div>
+							<div class="schedule-day">
+								<span class="schedule-day__name">Пятница</span>
+								<span class="schedule-day__badge schedule-day__badge--work">8:00-18:00</span>
+							</div>
+							<div class="schedule-day">
+								<span class="schedule-day__name">Суббота</span>
+								<span class="schedule-day__badge schedule-day__badge--off">Выходной</span>
+							</div>
+							<div class="schedule-day">
+								<span class="schedule-day__name">Воскресенье</span>
+								<span class="schedule-day__badge schedule-day__badge--off">Выходной</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- ========== BANNERS ========== -->
+					<h2 class="appeals__section-title">Баннеры</h2>
+					<div style="max-width: 500px; margin-bottom: 40px;">
+						<div class="sidebar-banner">
+							<div class="sidebar-banner__inner">
+								<div class="sidebar-banner__content">
+									<h2 class="sidebar-banner__title">Запись на приём</h2>
+									<p class="sidebar-banner__text">Оставьте заявку онлайн</p>
+									<button class="btn sidebar-banner__btn" data-modal-open="appointment-modal">Записаться</button>
+								</div>
+								<div class="sidebar-banner__media">
+									<img class="sidebar-banner__photo" src="assets/images/doctor-banner.png" alt="" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- ========== FORM SUCCESS ========== -->
+					<h2 class="appeals__section-title">Анимация успеха</h2>
+					<div style="margin-bottom: 40px;">
+						<div class="form-success" id="ui-success-demo" style="position: relative; display: flex; flex-direction: column; align-items: center; padding: 40px;">
+							<div class="form-success__spinner"></div>
+							<svg class="form-success__check" viewBox="0 0 80 80" width="64" height="64">
+								<circle class="form-success__circle" cx="40" cy="40" r="36" fill="none" stroke="#1976d2" stroke-width="4"/>
+								<path class="form-success__path" d="M22 42l12 12 24-28" fill="none" stroke="#1976d2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+							<p class="form-success__text">Спасибо!</p>
+							<p class="form-success__subtext">Ваша заявка принята.</p>
+							<button type="button" class="btn" id="ui-success-trigger" style="margin-top: 20px;">Показать анимацию</button>
+						</div>
+					</div>
+
+					<!-- ========== BREADCRUMBS ========== -->
+					<h2 class="appeals__section-title">Хлебные крошки</h2>
+					<div style="margin-bottom: 40px;">
+						<div class="breadcrumbs">
+							<img src="assets/images/icons/home.svg" alt="" width="16" height="16" />
+							<a href="index.html">Главная</a>
+							<span>/</span>
+							<a href="#">Раздел</a>
+							<span>/</span>
+							<span>Текущая</span>
+						</div>
+					</div>
+
+					<!-- ========== SEARCH ========== -->
+					<h2 class="appeals__section-title">Поиск</h2>
+					<div style="max-width: 400px; margin-bottom: 40px;">
+						<div style="position: relative;">
+							<input class="appointment__input" type="text" id="ui-search" placeholder="Поиск по сайту..." style="padding-left: 36px;" />
+							<img src="assets/images/icons/search.svg" alt="" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; pointer-events: none;" />
+						</div>
+					</div>
+
+					<!-- ========== GOSUSLUGI BANNER ========== -->
+					<h2 class="appeals__section-title">Госуслуги баннер (POS)</h2>
+					<div id="js-show-iframe-wrapper" style="max-width: 500px; margin-bottom: 40px;">
+						<div class="pos-banner-fluid bf-2">
+							<div class="bf-2__decor">
+								<div class="bf-2__logo-wrap">
+									<img class="bf-2__logo" src="assets/images/icons/gosuslugi-logo.svg" alt="Госуслуги" width="48" height="48" />
+									<div class="bf-2__slogan">Решаем вместе</div>
+								</div>
+							</div>
+							<div class="bf-2__content">
+								<div class="bf-2__description">
+									<span class="bf-2__text">Хотите оставить обращение?</span>
+									<span class="bf-2__text bf-2__text_small">Ваше мнение важно для нас — напишите нам!</span>
+								</div>
+								<div class="bf-2__btn-wrap">
+									<button class="pos-banner-btn_2" type="button" data-modal-open="feedback-modal">Оставить обращение</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</section>
+			</div>
+		</main>
+
+		<div data-partial="cta"></div>
+	</div>
+	<div data-partial="footer"></div>
+	<div data-partial="aside"></div>
+	<script src="js/partials-inline.js" charset="utf-8"></script>
+	<script src="js/news-inline.js" charset="utf-8"></script>
+	<script src="js/search-inline.js" charset="utf-8"></script>
+	<script src="js/search.js" charset="utf-8"></script>
+	<script src="js/accessibility.js" charset="utf-8"></script>
+<script src="js/main.js" charset="utf-8"></script>
+	<script src="js/layout.js" charset="utf-8"></script>
+	<script>
+		document.getElementById('ui-success-trigger').addEventListener('click', function() {
+			var success = document.getElementById('ui-success-demo');
+			var spinner = success.querySelector('.form-success__spinner');
+			var check = success.querySelector('.form-success__check');
+			spinner.hidden = false;
+			check.classList.remove('form-success--visible');
+			check.classList.remove('form-success--done');
+			success.classList.remove('form-success--done');
+			setTimeout(function() {
+				spinner.hidden = true;
+				check.classList.add('form-success--visible');
+				check.classList.add('form-success--done');
+				success.classList.add('form-success--done');
+			}, 1200);
+		});
+	</script>
+</body>
+</html>
